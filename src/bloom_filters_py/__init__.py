@@ -16,3 +16,9 @@ class BloomFilter(BloomFilterInterface):
         self.hash_functions = (
             hash_functions if hash_functions else [sha1, sha256, sha3_512]
         )
+
+    def add(self, value: Any) -> None:
+        pass
+
+    def search(self, value: Any) -> bool:
+        pass
