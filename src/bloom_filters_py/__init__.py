@@ -1,4 +1,5 @@
 import abc
+from dataclasses import dataclass, field
 from hashlib import sha1, sha3_512, sha256
 from typing import Any, Callable
 
@@ -11,11 +12,15 @@ class BloomFilterInterface(abc.ABC):
     def search(self, value: Any) -> bool: ...
 
 
+@dataclass
 class BloomFilter(BloomFilterInterface):
-    def __init__(self, hash_functions: list[Callable] = []):
-        self.hash_functions = (
-            hash_functions if hash_functions else [sha1, sha256, sha3_512]
-        )
+    hash_functions: list[Callable] = field(
+        default_factory=lambda: [sha1, sha256, sha3_512]
+    )
+    internal_filter: int | None = field(init=False)
+
+    def __post_init__(self):
+        self.internal_filter = None
 
     def add(self, value: Any) -> None:
         pass
