@@ -1,15 +1,8 @@
-import abc
 from dataclasses import dataclass, field
 from hashlib import sha1, sha3_512, sha256
 from typing import Any, Callable
 
-
-class BloomFilterInterface(abc.ABC):
-    @abc.abstractmethod
-    def add(self, value: Any) -> None: ...
-
-    @abc.abstractmethod
-    def search(self, value: Any) -> bool: ...
+from .interface import BloomFilterInterface
 
 
 @dataclass
