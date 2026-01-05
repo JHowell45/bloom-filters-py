@@ -24,14 +24,17 @@ class BloomFilter(BloomFilterInterface):
         self.internal_filter = 1 << self.size
 
     def add(self, value: Any) -> None:
-        print(bin(self.internal_filter))
         for hash_f in self.hash_functions:
             idx: int = self.__hash_index(hash_f, value)
             self.internal_filter |= 1 << idx
-            print(bin(self.internal_filter))
 
     def search(self, value: Any) -> bool:
-        pass
+        for hash_f in self.hash_functions:
+            idx: int = self.__hash_index(hash_f, value)
+            search_bit = self.internal_filter & (1 << idx)
+            if search_bit >> idx == 0:
+                return False
+        return True
 
     def __hash_index(self, hash: Callable, value: Any) -> int:
         if type(value) is str:
