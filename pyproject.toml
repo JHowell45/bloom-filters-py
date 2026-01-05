@@ -24,3 +24,6 @@ lint = [
 test = [
   "pytest"
 ]
+
+[tool.pytest]
+addopts = ["-v"]

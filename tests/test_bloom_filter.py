@@ -31,6 +31,7 @@ test_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pulv
 @pytest.mark.parametrize("not_exist", ["Hello", "World", "Star", "Wars", "Balloon"])
 def test_search_does_not_exist(not_exist: Any):
     filter = BloomFilter([sha1, sha256, sha512], 2500)
+    print(test_text.split())
     for word in test_text.split():
         filter.add(word)
     assert not filter.search(not_exist)
